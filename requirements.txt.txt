@@ -1,0 +1,25 @@
+# Core Data Handling & Utilities
+pandas
+numpy
+requests
+tqdm
+joblib
+
+# Machine Learning & NLP
+scikit-learn
+sentence-transformers
+lightgbm
+xgboost
+shap
+
+# Keras 3 Compatibility
+tensorflow
+tf-keras
+
+# Visualization & Notebook
+matplotlib
+seaborn
+jupyter
+
+# For Model Improvement (SMOTE)
+imbalanced-learn
