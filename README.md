@@ -10,21 +10,48 @@ The primary objective of this research is to develop and validate a machine lear
 ## Methodology
 
 The methodology follows a structured, sequential pipeline designed for robustness and reproducibility:
-1.  **Data Acquisition:** CVE data from 2020-2025 was programmatically fetched from a public mirror of the National Vulnerability Database (NVD).
-2.  **Data Preparation:** The raw JSON data was parsed to extract key fields. The dataset was then cleaned by removing entries with missing essential information and deduplicated based on the vulnerability description to prevent data leakage.
-3.  **Feature Engineering:** The core of our novel approach. We used a pre-trained **Sentence-BERT** model to convert CVE descriptions into rich, semantic vector embeddings. Categorical features like CWE were One-Hot Encoded.
-4.  **Model Training:** A **Stacked Classifier** was implemented using a scikit-learn `Pipeline`. LightGBM and XGBoost served as the base learners, and a Logistic Regression model served as the final meta-classifier. The entire training process was designed to prevent data leakage by splitting the data *before* any preprocessing was fit.
-5.  **Model Interpretation:** The final, trained model was analyzed using **SHAP (SHapley Additive exPlanations)** to understand which features were most influential in its predictions.
+1. **Data Collection**  
+   - Fetched CVE data (1999–2025) from NVD and Espressif datasets.  
+   - Each entry includes vulnerability description, CWE code, and CVSS base score.
+2. **Feature Engineering**  
+   - **Textual features:** Sentence embeddings using SBERT (`all-MiniLM-L6-v2`).  
+   - **Categorical features:** CWE category encoded numerically.  
+   - **Keyword & structural features:**  
+     - Description length  
+     - Indicators for terms like `overflow`, `injection`, `remote`, `execution`, etc.
+3. **Model Training**  
+   - Built an **ensemble stacking classifier**:  
+     - LightGBM  
+     - XGBoost  
+     - Logistic Regression (meta-learner)  
+   - Optimized via stratified K-Fold cross-validation.
+4. **Evaluation Metrics**  
+   - Accuracy, Precision, Recall, F1-Score, ROC-AUC.  
+   - Confusion matrix and feature importance visualizations.
+5. **Deployment**  
+   - Exported trained pipeline (`pipeline.pkl`).  
+   - Built a **Streamlit app (`risk-scoring.py`)** for real-time inference.
 
 ## Expected Contributions
 
 This research provides several key contributions to the field of automated cybersecurity and risk management:
-1.  A complete, end-to-end pipeline demonstrating a robust method for CVE risk scoring, including rigorous steps to identify and mitigate multiple forms of data leakage.
-2.  Strong evidence that semantic feature engineering using **Sentence-BERT** is a highly effective technique for this problem, capable of extracting meaningful patterns from unstructured text where traditional keyword-based methods would fail.
-3.  A high-performing **Stacked Ensemble model** that serves as a new, powerful baseline for future research in automated vulnerability prioritization.
+- A hybrid ML + NLP system that learns contextual severity meaning from vulnerability text.  
+- Faster and more consistent vulnerability scoring compared to manual analysis.  
+- Demonstration of integrating cybersecurity data with modern transformer embeddings.  
 
 ## DATASET
 
 The dataset was constructed from real-world vulnerability data sourced from the National Vulnerability Database (NVD). Access was facilitated through the public GitHub mirror maintained by Espressif: [espressif/esp-nvd-mirror](https://github.com/espressif/esp-nvd-mirror).
 
 The data includes CVEs published between 2020 and 2025. Key fields extracted for this project include the English-language `Description`, `CWE` (Common Weakness Enumeration), `CVSS_Score`, and the official `Severity` rating, which serves as our target label. The final dataset used for training was thoroughly cleaned and deduplicated to ensure data quality and model validity.
+
+## Run Application
+pip install -r requirements.txt
+Run 1-5.ipynb files
+streamlit run risk-scoring.py
+
+**Example Sample:**
+```csv
+description,cwe
+"Sensitive cookies transmitted over HTTP instead of HTTPS",CWE-614
+"Buffer overflow in file upload parser allows remote code execution",CWE-120
