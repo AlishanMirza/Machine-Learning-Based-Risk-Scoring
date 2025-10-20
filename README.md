@@ -46,9 +46,9 @@ The dataset was constructed from real-world vulnerability data sourced from the 
 The data includes CVEs published between 2020 and 2025. Key fields extracted for this project include the English-language `Description`, `CWE` (Common Weakness Enumeration), `CVSS_Score`, and the official `Severity` rating, which serves as our target label. The final dataset used for training was thoroughly cleaned and deduplicated to ensure data quality and model validity.
 
 ## Run Application
-pip install -r requirements.txt
-Run 1-5.ipynb files
-streamlit run risk-scoring.py
+pip install -r requirements.txt -
+Run 1-5.ipynb files -
+- streamlit run risk-scoring.py
 
 **Example Sample:**
 ```csv
