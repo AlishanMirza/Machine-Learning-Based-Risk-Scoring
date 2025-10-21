@@ -1,9 +1,9 @@
-# Automated CVE Risk Scoring using Machine Learning
+# Automated Risk Scoring using Machine Learning
 
 ## Research Objectives
 
 The primary objective of this research is to develop and validate a machine learning pipeline capable of automatically classifying the severity of Common Vulnerabilities and Exposures (CVEs). We aim to:
-1.  Develop a model that can accurately predict a CVE's risk level (Critical, High, Medium, Low) based on its textual description and metadata.
+1.  Develop a model that can accurately predict a risk level (Critical, High, Medium, Low) based on its textual description and metadata.
 2.  Investigate the effectiveness of modern Natural Language Processing (NLP) techniques, specifically Sentence-BERT, for capturing the semantic meaning of vulnerability text.
 3.  Evaluate whether a stacked ensemble of advanced classifiers (XGBoost, LightGBM) provides superior performance compared to single-model approaches.
 
@@ -47,8 +47,8 @@ The data includes CVEs published between 2020 and 2025. Key fields extracted for
 
 ## Run Application
 pip install -r requirements.txt -
-Run 1-5.ipynb files -
-- streamlit run risk-scoring.py
+1.Run 1-5.ipynb files - 2.Run final.ipynb
+- 3. streamlit run risk-scoring.py
 
 **Example Sample:**
 ```csv
