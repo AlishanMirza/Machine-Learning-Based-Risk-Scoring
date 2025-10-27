@@ -20,7 +20,7 @@
 ## Methodology
 - **Data Ingestion:** Collect and normalize CVE data (VulZoo 2024 & 2025).  
 - **Feature Engineering:** Extract CWE, description tokens, description length, asset criticality, CVSS, and CPE.  
-- **ML Modeling:** Train LightGBM with SMOTE balancing; generate probability-calibrated severity predictions.  
+- **ML Modeling:** Train RF, XGBoost and also LightGBM, with SMOTE balancing; generate probability-calibrated severity predictions.  
 - **Governance Mapping:** Convert AI predictions into Governance_Action_Packet using GRC ruleset.  
 - **Human-in-the-Loop:** Route high-risk cases to analysts; log final decisions in Security_Governance_Report.  
 - **Web UI:** Streamlit interface for visualization and manual validation.
