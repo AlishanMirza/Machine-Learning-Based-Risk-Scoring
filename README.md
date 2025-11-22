@@ -112,3 +112,59 @@ The final dataset was cleaned and deduplicated for model validity.
  #### 1.3 Generate AI_Risk_Intel
  #### 1.4 Governance Mapping
  #### 1.5 Launch Streamlit App (Colab)
+
+ ## Required Configuration Files for Component 2 (Governance Mapping)
+
+Component 2 (`02_component2_policy_alignment.py`) requires several configuration files that define
+your enterprise controls, asset inventory, and the NIST SP 800-53 control catalog.  
+These files must be present before running Component 2, or the pipeline will fail.
+
+Place all required files in the following directory:
+### Required Files
+
+#### 1. `NIST_SP-800-53_rev5_catalog_load.csv`
+- Contains the full catalog of NIST SP 800-53 Rev5 security controls.
+- Used to map vulnerabilities and ML signals to standardized governance requirements.
+- Required for generating:
+  - Control crosswalks  
+  - Governance_Action_Packet mappings  
+  - Posture classification (Compliant / At-Risk / Non-Compliant)
+
+#### 2. `enterprise_controls.json`
+- Contains your organization’s internal governance controls.
+- Must include:
+  - Control IDs  
+  - Descriptions  
+  - Mappings to NIST controls (if applicable)  
+- Used to align ML predictions and CVE intelligence with enterprise-specific governance rules.
+
+#### 3. `asset_criticality.json`
+- Contains the enterprise’s asset inventory with assigned criticality levels.
+- Used to:
+  - Determine impact  
+  - Decide whether human-review is required  
+  - Weight governance decisions  
+- Required fields typically include:
+  - Asset name  
+  - Criticality score  
+  - Owner or business unit (optional)
+
+#### 4. (Optional) `human_reviews.jsonl`
+- Created automatically by the Streamlit portal.
+- Stores human approvals, overrides, and rejections.
+- Used to merge analyst decisions into the final Security Governance Report.
+
+---
+---
+
+### Why These Files Matter
+
+Component 2 uses these files to:
+
+- Map CVEs → ML Severity → Governance Controls  
+- Determine governance posture  
+- Generate Governance_Action_Packets  
+- Decide which packets require human review  
+- Produce final, audit-ready governance outputs  
+
+Without these files, Component 2 **cannot** generate governance mappings or reports.
