@@ -149,9 +149,6 @@ Place all required files in the following directory:
   - Criticality score  
   - Owner or business unit (optional)
 
----
----
-
 ### Why These Files Matter
 
 Component 2 uses these files to:
