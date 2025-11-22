@@ -1,0 +1,275 @@
+{
+  "enterprise_name": "ACME Cyber Solutions",
+  "framework_reference_primary": "NIST SP 800-53 Rev. 5",
+  "crosswalks_enabled": ["ISO/IEC 27001:2022", "PCI DSS v4.x", "CIS Controls v8", "NIST SSDF SP 800-218", "MITRE ATT&CK"],
+  "policy": {
+    "requires_human_thresholds": {
+      "severity_high": true,
+      "min_model_confidence": 0.85,
+      "critical_asset_weight": 0.85,
+      "top_control_score": 0.60
+    },
+    "composite_weighting": {
+      "keyword_overlap": 0.40,
+      "family_alignment": 0.20,
+      "cwe_alignment": 0.20,
+      "cpe_alignment": 0.20,
+      "severity_multiplier": { "Low": 0.8, "Medium": 1.0, "High": 1.2 },
+      "confidence_range": [0.5, 1.0],
+      "asset_weight_range": [0.6, 1.0]
+    },
+    "slas_by_severity": {
+      "Low":    "Patch in next maintenance window; verify via routine scan (≤ 30 days).",
+      "Medium": "Prioritize remediation in next sprint; retest on completion (≤ 14 days).",
+      "High":   "Emergency patch/mitigation; isolate if needed; retest (≤ 72 hours)."
+    }
+  },
+  "controls": [
+    {
+      "control_id": "RA-5",
+      "name": "Vulnerability Monitoring and Scanning",
+      "implementation_status": "Implemented",
+      "owner": "Vulnerability Management",
+      "evidence": "Qualys/Tenable continuous scans; monthly remediation reports; authenticated scans for servers.",
+      "last_audit": "2025-09-12",
+      "effectiveness_rating": 0.95,
+      "automation_coverage": 0.9,
+      "tooling": ["Qualys VMDR", "GitHub Advanced Security", "DefectDojo"],
+      "process": {
+        "frequency": "continuous",
+        "risk_exception_board": "Risk Committee",
+        "exception_sla_days": 30
+      },
+      "nist_family": "RA",
+      "iso_refs": ["ISO/IEC 27001:2022 Annex A 8.8", "A.5.23"],
+      "pci_refs": ["PCI DSS 11.2, 11.3"],
+      "cis_refs": ["CIS Control 7, 16"],
+      "ssdf_refs": ["PW.5", "RV.1"],
+      "attack_mapping": ["Reconnaissance", "Initial Access"],
+      "notes": "Treat unauthenticated external findings as high priority if internet-exposed assets are affected."
+    },
+    {
+      "control_id": "SI-10",
+      "name": "Information Input Validation",
+      "implementation_status": "Planned",
+      "owner": "Application Security",
+      "evidence": "Secure coding guideline exists; CI/CD SAST/DAST rollout at 60%; input validation library standard drafted.",
+      "last_audit": "2025-08-20",
+      "effectiveness_rating": 0.45,
+      "automation_coverage": 0.6,
+      "tooling": ["Semgrep", "OWASP ZAP", "Burp Suite"],
+      "process": {
+        "sdlc_gate": "Required for release-to-prod",
+        "severity_override_allowed": true,
+        "threat_model_required": true
+      },
+      "nist_family": "SI",
+      "iso_refs": ["A.8.28", "A.8.31"],
+      "pci_refs": ["PCI DSS 6.3, 6.5"],
+      "cis_refs": ["CIS Control 16"],
+      "ssdf_refs": ["PW.4", "PS.3", "RV.3"],
+      "attack_mapping": ["Execution", "Exfiltration"],
+      "notes": "Prioritize for CWE-79/89/78; mandate framework-level validators."
+    },
+    {
+      "control_id": "AC-2",
+      "name": "Account Management",
+      "implementation_status": "Implemented",
+      "owner": "Identity & Access Management",
+      "evidence": "HR-driven joiner/mover/leaver automation; quarterly access reviews in SailPoint; PAM in place.",
+      "last_audit": "2025-09-10",
+      "effectiveness_rating": 0.88,
+      "automation_coverage": 0.85,
+      "tooling": ["SailPoint", "CyberArk", "Okta"],
+      "process": {
+        "review_frequency": "quarterly",
+        "break_glass_accounts": "segregated and monitored",
+        "shared_accounts_policy": "prohibited"
+      },
+      "nist_family": "AC",
+      "iso_refs": ["A.5.18", "A.8.2"],
+      "pci_refs": ["PCI DSS 7.1, 7.2"],
+      "cis_refs": ["CIS Control 6"],
+      "ssdf_refs": [],
+      "attack_mapping": ["Privilege Escalation", "Persistence"],
+      "notes": "Alert on stale accounts; enforce SoD across critical apps."
+    },
+    {
+      "control_id": "AC-6",
+      "name": "Least Privilege",
+      "implementation_status": "Implemented",
+      "owner": "Identity & Access Management",
+      "evidence": "RBAC enforced; PAM for admin access; periodic privileged access re-certification.",
+      "last_audit": "2025-09-10",
+      "effectiveness_rating": 0.90,
+      "automation_coverage": 0.8,
+      "tooling": ["CyberArk", "Okta Workflows"],
+      "process": {
+        "revoke_inactive_admins_days": 30,
+        "ticket_required_for_priv_elevation": true
+      },
+      "nist_family": "AC",
+      "iso_refs": ["A.5.18", "A.8.2"],
+      "pci_refs": ["PCI DSS 7.2, 8.x"],
+      "cis_refs": ["CIS Control 6"],
+      "ssdf_refs": [],
+      "attack_mapping": ["Privilege Escalation"],
+      "notes": "Map directly to CWE-285/287, CSRF follow-ups."
+    },
+    {
+      "control_id": "IA-2",
+      "name": "Identification and Authentication (Organizational Users)",
+      "implementation_status": "Implemented",
+      "owner": "Identity & Access Management",
+      "evidence": "Okta MFA enforced; phishing-resistant MFA pilot for admins; device posture checks via EDR.",
+      "last_audit": "2025-09-14",
+      "effectiveness_rating": 0.92,
+      "automation_coverage": 0.9,
+      "tooling": ["Okta", "Duo", "Jamf", "Intune"],
+      "process": {
+        "phish_resistant_mfa_for_admins": true,
+        "mfa_exceptions_process": "CISO approval only"
+      },
+      "nist_family": "IA",
+      "iso_refs": ["A.8.3"],
+      "pci_refs": ["PCI DSS 8.x"],
+      "cis_refs": ["CIS Control 6"],
+      "ssdf_refs": [],
+      "attack_mapping": ["Initial Access"],
+      "notes": "Align with FIDO2/WebAuthn adoption roadmap."
+    },
+    {
+      "control_id": "SC-7",
+      "name": "Boundary Protection",
+      "implementation_status": "Implemented",
+      "owner": "Network Security",
+      "evidence": "Segmentation between zones; WAF on internet apps; IDS/IPS in core; egress filtering.",
+      "last_audit": "2025-09-11",
+      "effectiveness_rating": 0.86,
+      "automation_coverage": 0.8,
+      "tooling": ["Palo Alto NGFW", "Cloudflare WAF", "Suricata"],
+      "process": {
+        "change_control": "RFC and risk review",
+        "network_baselines": "documented and monitored"
+      },
+      "nist_family": "SC",
+      "iso_refs": ["A.8.20", "A.8.23"],
+      "pci_refs": ["PCI DSS 1.x"],
+      "cis_refs": ["CIS Control 12, 13"],
+      "ssdf_refs": [],
+      "attack_mapping": ["Command and Control", "Exfiltration"],
+      "notes": "Tightly linked with SI-10 for input validation at edge."
+    },
+    {
+      "control_id": "SI-2",
+      "name": "Flaw Remediation",
+      "implementation_status": "Implemented",
+      "owner": "Patch Management",
+      "evidence": "WSUS/Jamf pipelines; 14-day SLA for servers; zero-day fast-track runbooks.",
+      "last_audit": "2025-09-09",
+      "effectiveness_rating": 0.87,
+      "automation_coverage": 0.85,
+      "tooling": ["WSUS", "Jamf Pro", "Ansible"],
+      "process": {
+        "slo_patch_servers_days": 14,
+        "slo_patch_workstations_days": 21,
+        "emergency_change_window": "24x7"
+      },
+      "nist_family": "SI",
+      "iso_refs": ["A.8.8"],
+      "pci_refs": ["PCI DSS 6.2"],
+      "cis_refs": ["CIS Control 4, 7"],
+      "ssdf_refs": ["RV.1", "RV.2"],
+      "attack_mapping": ["Privilege Escalation", "Defense Evasion"],
+      "notes": "Include firmware/BIOS patch KPIs in quarterly report."
+    },
+    {
+      "control_id": "SA-11",
+      "name": "Developer Security Testing and Evaluation",
+      "implementation_status": "Implemented",
+      "owner": "Software Engineering",
+      "evidence": "SAST/DAST/SCA in CI; IaC policy checks; supply chain attestations (SLSA L2 target).",
+      "last_audit": "2025-09-15",
+      "effectiveness_rating": 0.82,
+      "automation_coverage": 0.7,
+      "tooling": ["GitHub Advanced Security", "Snyk", "Trivy", "Checkov"],
+      "process": {
+        "blocker_severity": ["High", "Critical"],
+        "threat_modeling": "STRIDE for high-impact services"
+      },
+      "nist_family": "SA",
+      "iso_refs": ["A.8.28", "A.5.23"],
+      "pci_refs": ["PCI DSS 6.3, 6.5, 6.7"],
+      "cis_refs": ["CIS Control 16"],
+      "ssdf_refs": ["PS.2", "PW.4", "PW.7"],
+      "attack_mapping": ["Initial Access", "Defense Evasion"],
+      "notes": "Align to SSDF for SDLC practices; integrate SBOM policy."
+    },
+    {
+      "control_id": "SC-28",
+      "name": "Protection of Information at Rest",
+      "implementation_status": "Implemented",
+      "owner": "Data Security",
+      "evidence": "FIPS 140-validated encryption at rest; KEK rotation quarterly; HSM-backed keys.",
+      "last_audit": "2025-09-18",
+      "effectiveness_rating": 0.9,
+      "automation_coverage": 0.85,
+      "tooling": ["AWS KMS", "Azure Key Vault", "HSM"],
+      "process": {
+        "key_rotation_days": 90,
+        "crypto_inventory": "centralized"
+      },
+      "nist_family": "SC",
+      "iso_refs": ["A.8.24"],
+      "pci_refs": ["PCI DSS 3.x"],
+      "cis_refs": ["CIS Control 3"],
+      "ssdf_refs": [],
+      "attack_mapping": ["Exfiltration"],
+      "notes": "Tie to data classification scheme in assets."
+    },
+    {
+      "control_id": "IR-4",
+      "name": "Incident Handling",
+      "implementation_status": "Implemented",
+      "owner": "Security Operations",
+      "evidence": "24x7 on-call; playbooks for ransomware, data exfil, BEC; tabletop exercises semi-annually.",
+      "last_audit": "2025-09-22",
+      "effectiveness_rating": 0.88,
+      "automation_coverage": 0.7,
+      "tooling": ["Cortex XSOAR", "Splunk SOAR"],
+      "process": {
+        "mttr_target_hours": 24,
+        "forensics_partner_on_retainer": true
+      },
+      "nist_family": "IR",
+      "iso_refs": ["A.5.25", "A.5.26"],
+      "pci_refs": ["PCI DSS 12.10"],
+      "cis_refs": ["CIS Control 17"],
+      "ssdf_refs": [],
+      "attack_mapping": ["All (response)"],
+      "notes": "Link to business continuity/disaster recovery (CP family)."
+    },
+    {
+      "control_id": "AC-14",
+      "name": "Permitted Actions Without Identification or Authentication",
+      "implementation_status": "Not Implemented",
+      "owner": "IT Operations",
+      "evidence": "No enterprise standard for unauthenticated operations; gaps on public APIs.",
+      "last_audit": "2025-08-01",
+      "effectiveness_rating": 0.2,
+      "automation_coverage": 0.0,
+      "tooling": [],
+      "process": {
+        "policy_planned_q": "Q4-2025",
+        "owner_acknowledged_gap": true
+      },
+      "nist_family": "AC",
+      "iso_refs": ["A.8.2"],
+      "pci_refs": ["PCI DSS 7.x"],
+      "cis_refs": ["CIS Control 6"],
+      "ssdf_refs": [],
+      "attack_mapping": ["Initial Access"],
+      "notes": "High priority to formalize and audit exceptions."
+    }
+  ]
+}
