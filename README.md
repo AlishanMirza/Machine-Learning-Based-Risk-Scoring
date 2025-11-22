@@ -4,7 +4,7 @@
 This system converts raw CVE data into structured, explainable, and governance-ready intelligence. It integrates AI risk estimation (SBERT + LightGBM), NIST/enterprise policy alignment, asset criticality, and a Streamlit-based human-review portal. The output is a complete Security Governance Report suitable for SOC workflows, audit trails, and compliance documentation.
 
 The full pipeline is implemented in:  
-**GRC_Implementation_final.ipynb**
+**GRC_Implementation_Pipeline.ipynb**
 
 ---
 
@@ -106,7 +106,7 @@ The final dataset was cleaned and deduplicated for model validity.
 ## Run Application
 
 ### **1. Run in Google Colab**
-- Open GRC_Implementation_final.ipynb inside Google Colab.
+- Open GRC_Implementation_Pipeline.ipynb inside Google Colab.
  #### 1.1 Setup Project Folders
  #### 1.2 Download CVE Dataset
  #### 1.3 Generate AI_Risk_Intel
