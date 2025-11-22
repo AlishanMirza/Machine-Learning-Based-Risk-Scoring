@@ -1,0 +1,304 @@
+{
+  "enterprise_name": "ACME Cyber Solutions",
+  "assets": [
+    {
+      "asset_id": "WEB-PLATFORM",
+      "asset_name": "Public Web & API Frontends",
+      "business_unit": "Digital Services",
+      "criticality": 0.95,
+      "data_classification": "Public",
+      "internet_exposed": true,
+      "platform": "Linux",
+      "cpe_candidates": [
+        "cpe:2.3:a:apache:*:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:nginx:*:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:microsoft:internet_information_services:*:*:*:*:*:*:*:*"
+      ],
+      "mitre_exposure": ["Initial Access", "Command and Control"],
+      "sdlc_env": "Prod",
+      "backup_tier": "Premium",
+      "rto_hours": 4,
+      "rpo_hours": 1,
+      "tags": ["web", "frontend", "reverse-proxy", "api"]
+    },
+    {
+      "asset_id": "WEB-CMS",
+      "asset_name": "Web CMS & Plugins Stack",
+      "business_unit": "Marketing",
+      "criticality": 0.9,
+      "data_classification": "Public",
+      "internet_exposed": true,
+      "platform": "Linux",
+      "cpe_candidates": [
+        "cpe:2.3:a:wordpress:*:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:drupal:*:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:joomla:*:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:*:*:*:*:*:*:*:wordpress:*:*"
+      ],
+      "mitre_exposure": ["Initial Access", "Persistence"],
+      "sdlc_env": "Prod",
+      "backup_tier": "Premium",
+      "rto_hours": 6,
+      "rpo_hours": 2,
+      "tags": ["cms", "wordpress", "plugins", "web"]
+    },
+    {
+      "asset_id": "APP-SERVICES",
+      "asset_name": "Business Application Services",
+      "business_unit": "Enterprise Apps",
+      "criticality": 0.9,
+      "data_classification": "Internal",
+      "internet_exposed": false,
+      "platform": "Linux",
+      "cpe_candidates": [
+        "cpe:2.3:a:atlassian:*:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:redhat:*:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:ibm:*:*:*:*:*:*:*:*:*"
+      ],
+      "mitre_exposure": ["Privilege Escalation", "Lateral Movement"],
+      "sdlc_env": "Prod",
+      "backup_tier": "Standard",
+      "rto_hours": 8,
+      "rpo_hours": 2,
+      "tags": ["application", "middleware", "enterprise-app"]
+    },
+    {
+      "asset_id": "DB-SERVICES",
+      "asset_name": "Database Services Cluster",
+      "business_unit": "Data Platform",
+      "criticality": 0.95,
+      "data_classification": "Confidential",
+      "internet_exposed": false,
+      "platform": "Linux",
+      "cpe_candidates": [
+        "cpe:2.3:a:oracle:mysql:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:postgresql:postgresql:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:microsoft:sql_server:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:oracle:database_server:*:*:*:*:*:*:*:*"
+      ],
+      "mitre_exposure": ["Credential Access", "Privilege Escalation"],
+      "sdlc_env": "Prod",
+      "backup_tier": "Premium",
+      "rto_hours": 4,
+      "rpo_hours": 1,
+      "tags": ["db", "sql", "data", "backend"]
+    },
+    {
+      "asset_id": "EMAIL-INFRA",
+      "asset_name": "Email & Collaboration Infrastructure",
+      "business_unit": "IT Services",
+      "criticality": 0.9,
+      "data_classification": "Internal",
+      "internet_exposed": true,
+      "platform": "Windows",
+      "cpe_candidates": [
+        "cpe:2.3:a:microsoft:exchange_server:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:zimbra:*:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:exim:exim:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:postfix:postfix:*:*:*:*:*:*:*:*"
+      ],
+      "mitre_exposure": ["Initial Access", "Command and Control"],
+      "sdlc_env": "Prod",
+      "backup_tier": "Standard",
+      "rto_hours": 8,
+      "rpo_hours": 2,
+      "tags": ["email", "exchange", "mail"]
+    },
+    {
+      "asset_id": "IDENTITY-SSO",
+      "asset_name": "Identity, SSO, and Directory Services",
+      "business_unit": "Security",
+      "criticality": 0.96,
+      "data_classification": "Internal",
+      "internet_exposed": false,
+      "platform": "Windows",
+      "cpe_candidates": [
+        "cpe:2.3:a:microsoft:active_directory:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:okta:*:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:keycloak:keycloak:*:*:*:*:*:*:*:*"
+      ],
+      "mitre_exposure": ["Privilege Escalation", "Credential Access"],
+      "sdlc_env": "Prod",
+      "backup_tier": "Premium",
+      "rto_hours": 4,
+      "rpo_hours": 1,
+      "tags": ["idp", "sso", "directory", "auth"]
+    },
+    {
+      "asset_id": "ENDPOINT-WINDOWS",
+      "asset_name": "Windows Endpoints Fleet",
+      "business_unit": "All",
+      "criticality": 0.7,
+      "data_classification": "Internal",
+      "internet_exposed": false,
+      "platform": "Windows",
+      "cpe_candidates": [
+        "cpe:2.3:o:microsoft:windows_10:*:*:*:*:*:*:*:*",
+        "cpe:2.3:o:microsoft:windows_11:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:microsoft:edge:*:*:*:*:*:*:*:*"
+      ],
+      "mitre_exposure": ["Execution", "Persistence"],
+      "sdlc_env": "User",
+      "backup_tier": "None",
+      "rto_hours": 48,
+      "rpo_hours": 24,
+      "tags": ["endpoint", "windows", "workstation"]
+    },
+    {
+      "asset_id": "ENDPOINT-MAC",
+      "asset_name": "macOS Endpoints Fleet",
+      "business_unit": "All",
+      "criticality": 0.65,
+      "data_classification": "Internal",
+      "internet_exposed": false,
+      "platform": "MacOS",
+      "cpe_candidates": [
+        "cpe:2.3:o:apple:macos:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:apple:safari:*:*:*:*:*:*:*:*"
+      ],
+      "mitre_exposure": ["Execution"],
+      "sdlc_env": "User",
+      "backup_tier": "None",
+      "rto_hours": 48,
+      "rpo_hours": 24,
+      "tags": ["endpoint", "mac", "workstation"]
+    },
+    {
+      "asset_id": "ENDPOINT-LINUX",
+      "asset_name": "Linux Desktops and Admin Hosts",
+      "business_unit": "Engineering",
+      "criticality": 0.7,
+      "data_classification": "Internal",
+      "internet_exposed": false,
+      "platform": "Linux",
+      "cpe_candidates": [
+        "cpe:2.3:o:linux:linux_kernel:*:*:*:*:*:*:*:*",
+        "cpe:2.3:o:canonical:ubuntu_linux:*:*:*:*:*:*:*:*",
+        "cpe:2.3:o:redhat:enterprise_linux:*:*:*:*:*:*:*:*"
+      ],
+      "mitre_exposure": ["Execution", "Lateral Movement"],
+      "sdlc_env": "User",
+      "backup_tier": "None",
+      "rto_hours": 48,
+      "rpo_hours": 24,
+      "tags": ["endpoint", "linux", "admin"]
+    },
+    {
+      "asset_id": "NETWORK-SECURITY",
+      "asset_name": "Network Security Appliances",
+      "business_unit": "Network Operations",
+      "criticality": 0.96,
+      "data_classification": "Internal",
+      "internet_exposed": true,
+      "platform": "Appliance",
+      "cpe_candidates": [
+        "cpe:2.3:o:cisco:asa:*:*:*:*:*:*:*:*",
+        "cpe:2.3:o:palo_alto:pan-os:*:*:*:*:*:*:*:*",
+        "cpe:2.3:o:fortinet:fortios:*:*:*:*:*:*:*:*"
+      ],
+      "mitre_exposure": ["Initial Access", "Command and Control"],
+      "sdlc_env": "Prod",
+      "backup_tier": "Premium",
+      "rto_hours": 4,
+      "rpo_hours": 2,
+      "tags": ["firewall", "vpn", "network-security"]
+    },
+    {
+      "asset_id": "DNS-INFRA",
+      "asset_name": "Authoritative & Internal DNS",
+      "business_unit": "Infrastructure",
+      "criticality": 0.8,
+      "data_classification": "Internal",
+      "internet_exposed": false,
+      "platform": "Linux",
+      "cpe_candidates": [
+        "cpe:2.3:a:isc:bind:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:powerdns:authoritative:*:*:*:*:*:*:*:*"
+      ],
+      "mitre_exposure": ["Discovery"],
+      "sdlc_env": "Prod",
+      "backup_tier": "Standard",
+      "rto_hours": 12,
+      "rpo_hours": 4,
+      "tags": ["dns", "infrastructure"]
+    },
+    {
+      "asset_id": "VIRTUALIZATION",
+      "asset_name": "Virtualization & Hypervisor Layer",
+      "business_unit": "Infrastructure",
+      "criticality": 0.9,
+      "data_classification": "Internal",
+      "internet_exposed": false,
+      "platform": "VMware",
+      "cpe_candidates": [
+        "cpe:2.3:o:vmware:esxi:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:vmware:vcenter_server:*:*:*:*:*:*:*:*",
+        "cpe:2.3:o:citrix:hypervisor:*:*:*:*:*:*:*:*"
+      ],
+      "mitre_exposure": ["Privilege Escalation", "Lateral Movement"],
+      "sdlc_env": "Prod",
+      "backup_tier": "Standard",
+      "rto_hours": 6,
+      "rpo_hours": 2,
+      "tags": ["vm", "hypervisor", "virtualization"]
+    },
+    {
+      "asset_id": "CLOUD-K8S",
+      "asset_name": "Container Orchestration & Cloud Runtime",
+      "business_unit": "Cloud Platform",
+      "criticality": 0.92,
+      "data_classification": "Internal",
+      "internet_exposed": false,
+      "platform": "Kubernetes",
+      "cpe_candidates": [
+        "cpe:2.3:a:kubernetes:kubernetes:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:rancher:rancher:*:*:*:*:*:*:*:*"
+      ],
+      "mitre_exposure": ["Execution", "Privilege Escalation"],
+      "sdlc_env": "Prod",
+      "backup_tier": "Standard",
+      "rto_hours": 6,
+      "rpo_hours": 2,
+      "tags": ["k8s", "containers", "cloud"]
+    },
+    {
+      "asset_id": "MONITORING-SIEM",
+      "asset_name": "Monitoring, Logging, and SIEM",
+      "business_unit": "Security Operations",
+      "criticality": 0.88,
+      "data_classification": "Internal",
+      "internet_exposed": false,
+      "platform": "Linux",
+      "cpe_candidates": [
+        "cpe:2.3:a:elastic:kibana:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:elastic:logstash:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:splunk:splunk:*:*:*:*:*:*:*:*"
+      ],
+      "mitre_exposure": ["Defense Evasion"],
+      "sdlc_env": "Prod",
+      "backup_tier": "Premium",
+      "rto_hours": 6,
+      "rpo_hours": 2,
+      "tags": ["siem", "logging", "monitoring"]
+    },
+    {
+      "asset_id": "STORAGE-BACKUP",
+      "asset_name": "Storage and Backup Systems",
+      "business_unit": "Infrastructure",
+      "criticality": 0.85,
+      "data_classification": "Internal",
+      "internet_exposed": false,
+      "platform": "Appliance",
+      "cpe_candidates": [
+        "cpe:2.3:o:netapp:*:*:*:*:*:*:*:*:*",
+        "cpe:2.3:a:veeam:backup_*:*:*:*:*:*:*:*:*"
+      ],
+      "mitre_exposure": ["Impact", "Exfiltration"],
+      "sdlc_env": "Prod",
+      "backup_tier": "Premium",
+      "rto_hours": 12,
+      "rpo_hours": 4,
+      "tags": ["storage", "backup", "resilience"]
+    }
+  ]
+}
