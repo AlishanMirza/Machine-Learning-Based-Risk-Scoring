@@ -149,11 +149,6 @@ Place all required files in the following directory:
   - Criticality score  
   - Owner or business unit (optional)
 
-#### 4. (Optional) `human_reviews.jsonl`
-- Created automatically by the Streamlit portal.
-- Stores human approvals, overrides, and rejections.
-- Used to merge analyst decisions into the final Security Governance Report.
-
 ---
 ---
 
