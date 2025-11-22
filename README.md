@@ -8,42 +8,67 @@ GRC_Implementation_final.ipynb
 
 
 ## Research Objectives
+•	Transform raw vulnerability intelligence into structured, explainable risk insights.
+•	Integrate machine learning predictions with governance policies to produce actionable GRC decisions.
+•	Ensure human-in-the-loop validation for high-risk or ambiguous cases.
+•	Maintain auditable and traceable outputs for enterprise compliance.
 
-	1) Transform raw vulnerability intelligence into structured, explainable risk insights.
-	2) Integrate machine learning predictions with governance policies to produce actionable GRC decisions.
-	3) Ensure human-in-the-loop validation for high-risk or ambiguous cases.
-	4) Maintain auditable and traceable outputs for enterprise compliance.
+## Research Gap
+•	Most existing tools output only severity labels or CVSS scores without aligning to governance policy or control posture.
+•	Few prototypes create explainable, governance-ready artifacts.
+•	End-to-end integration (CVE ingestion → ML → GRC mapping → human review → governance report) is largely missing from industry and academic literature.
+
+## Key Goals
+•	Generate calibrated AI_Risk_Intel objects enriched with text embeddings, CVE metadata, model probabilities, and explainability fields.
+•	Convert predictions into Governance_Action_Packets using crosswalks between ML risk, NIST SP 800-53 controls, enterprise policies, and asset criticality.
+•	Route high-risk cases to human analysts and record the final decisions.
+•	Produce a complete Security_Governance_Report for audit and compliance validation.
+	
 ## Methodology
 
-The methodology follows a structured, sequential pipeline designed for robustness and reproducibility:
-1. **Data Collection**  
-   - Fetched CVE data (1999–2025) from NVD and Espressif datasets.  
-   - Each entry includes vulnerability description, CWE code, and CVSS base score.
-2. **Feature Engineering**  
-   - **Textual features:** Sentence embeddings using SBERT (`all-MiniLM-L6-v2`).  
-   - **Categorical features:** CWE category encoded numerically.  
-   - **Keyword & structural features:**  
-     - Description length  
-     - Indicators for terms like `overflow`, `injection`, `remote`, `execution`, etc.
-3. **Model Training**  
-   - Built an **ensemble stacking classifier**:  
-     - LightGBM  
-     - XGBoost  
-     - Logistic Regression (meta-learner)  
-   - Optimized via stratified K-Fold cross-validation.
-4. **Evaluation Metrics**  
-   - Accuracy, Precision, Recall, F1-Score, ROC-AUC.  
-   - Confusion matrix and feature importance visualizations.
-5. **Deployment**  
-   - Exported trained pipeline (`pipeline.pkl`).  
-   - Built a **Streamlit app (`risk-scoring.py`)** for real-time inference.
+**Data Ingestion**
+	•	Download CVE records from the NVD mirror Espressif: [espressif/esp-nvd-mirror](https://github.com/espressif/esp-nvd-mirror).
+	•	Normalize structure into: description, CWE, CPE, vendors/products, CVSS vectors, publish timestamps.
+
+**Feature Engineering**
+	•	SBERT text embeddings (SentenceTransformers + PyTorch).
+	•	CVSS score vectors (8 dimensions).
+	•	CWE indicators, tokenized vendor/product keywords.
+	•	Description length, asset criticality (from enterprise catalog).
+	•	Model-ready numerical feature matrix.
+
+**Machine Learning**
+	•	Random Forest, XGBoost, and LightGBM considered; LightGBM chosen as the primary production model.
+	•	Class imbalance handled using SMOTE and class-weighting.
+	•	Probability calibration (CalibratedClassifierCV) for trustworthy governance thresholds.
+	•	Evaluation: Accuracy, F1, confusion matrix, per-class precision/recall.
+
+**Governance Mapping**
+	•	Map AI predictions to NIST SP 800-53 rev5 controls (via enterprise control catalog).
+	•	Derive governance posture (Compliant / At-Risk / Non-Compliant).
+	•	Generate Governance_Action_Packet objects containing:
+	•	Required controls
+	•	Affected assets
+	•	Recommended governance actions
+	•	Risk explanations
+	•	Whether human review is required
+
+**Human-in-the-Loop**
+	•	Streamlit interface presents each Governance_Action_Packet.
+	•	Analysts can Approve / Override / Reject.
+	•	Decisions merged into the final Security_Governance_Report.
+
+**Web UI**
+	•	Built with Streamlit (component3_review_app.py).
+	•	Filters, object inspection, governance workflow, and CSV/JSONL export.
+	•	In Colab, Cloudflare tunnel enables external sharing.
 
 ## Expected Contributions
-
-This research provides several key contributions to the field of automated cybersecurity and risk management:
-- A hybrid ML + NLP system that learns contextual severity meaning from vulnerability text.  
-- Faster and more consistent vulnerability scoring compared to manual analysis.  
-- Demonstration of integrating cybersecurity data with modern transformer embeddings.  
+•	Complete, reproducible prototype for AI-assisted security governance.
+•	Explainable ML severity predictions, calibrated for GRC workflows.
+•	Formal governance objects (AI_Risk_Intel & Governance_Action_Packet).
+•	Human-in-the-loop GRC decisioning platform.
+•	Auditable Security_Governance_Report suitable for enterprise use.  
 
 ## DATASET
 
@@ -52,9 +77,13 @@ The dataset was constructed from real-world vulnerability data sourced from the 
 The data includes CVEs published between 2020 and 2025. Key fields extracted for this project include the English-language `Description`, `CWE` (Common Weakness Enumeration), `CVSS_Score`, and the official `Severity` rating, which serves as our target label. The final dataset used for training was thoroughly cleaned and deduplicated to ensure data quality and model validity.
 
 ## Run Application
-pip install -r requirements.txt -
-1.Run 1-5.ipynb files - 2.Run final.ipynb
-- 3. streamlit run risk-scoring.py
+### 1. Install Dependencies
+### 2. Run in Google Colab
+#### 2.1 Setup Project Folders
+#### 2.2 Download CVE Dataset
+#### 2.3 Generate AI_Risk_Intel
+#### 2.4 Governance Mapping
+#### 2.5 Launch Streamlit App
 
 **Example Sample:**
 ```csv
