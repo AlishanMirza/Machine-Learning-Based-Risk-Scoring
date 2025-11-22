@@ -120,6 +120,10 @@ your enterprise controls, asset inventory, and the NIST SP 800-53 control catalo
 These files must be present before running Component 2, or the pipeline will fail.
 
 Place all required files in the following directory:
+/config
+├── NIST_SP-800-53_rev5_catalog_load.csv
+├── enterprise_controls.json
+├── asset_criticality.json
 ### Required Files
 
 #### 1. `NIST_SP-800-53_rev5_catalog_load.csv`
