@@ -107,8 +107,8 @@ The final dataset was cleaned and deduplicated for model validity.
 
 ### **1. Run in Google Colab**
 -Open GRC_Implementation_final.ipynb inside Google Colab.
-#### 2.1 Setup Project Folders
-#### 2.2 Download CVE Dataset
-#### 2.3 Generate AI_Risk_Intel
-#### 2.4 Governance Mapping
-#### 2.5 Launch Streamlit App (Colab)
+ #### 1.1 Setup Project Folders
+ #### 1.2 Download CVE Dataset
+ #### 1.3 Generate AI_Risk_Intel
+ #### 1.4 Governance Mapping
+ #### 1.5 Launch Streamlit App (Colab)
