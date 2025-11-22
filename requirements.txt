@@ -1,25 +1,27 @@
-# Core Data Handling & Utilities
-pandas
-numpy
-requests
-tqdm
-joblib
+# PyTorch (CPU/GPU auto)
+torch
 
-# Machine Learning & NLP
-scikit-learn
+# SBERT
 sentence-transformers
+
+# ML frameworks (GPU-capable, CPU fallback)
 lightgbm
 xgboost
-shap
+scikit-learn
 
-# Keras 3 Compatibility
-tensorflow
-tf-keras
+# Data & processing
+pandas
+numpy
+joblib
+tqdm
+requests
 
-# Visualization & Notebook
+# Visualization
 matplotlib
 seaborn
-jupyter
 
-# For Model Improvement (SMOTE)
-imbalanced-learn
+# Text processing
+nltk
+
+# Streamlit app
+streamlit
