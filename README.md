@@ -1,12 +1,18 @@
-# Automated Risk Scoring using Machine Learning
+# AI-assisted Governance, Risk & Compliance (GRC) engine integrating CVE intelligence, ML-based severity prediction, policy alignment, and human-in-the-loop governance.
+
+## Overview
+This system converts raw CVE data into structured, explainable, and governance-ready intelligence. It integrates AI risk estimation (SBERT + LightGBM), NIST/enterprise policy alignment, asset criticality, and a Streamlit-based human-review portal. The output is a complete Security Governance Report suitable for SOC workflows, audit trails, and compliance documentation.
+
+The full pipeline is implemented in:
+GRC_Implementation_final.ipynb
+
 
 ## Research Objectives
 
-The primary objective of this research is to develop and validate a machine learning pipeline capable of automatically classifying the severity of Common Vulnerabilities and Exposures based on description. We aim to:
-1.  Develop a model that can accurately predict a risk level (Critical, High, Medium, Low) based on its textual description and metadata.
-2.  Investigate the effectiveness of modern Natural Language Processing (NLP) techniques, specifically Sentence-BERT, for capturing the semantic meaning of vulnerability text.
-3.  Evaluate whether a stacked ensemble of advanced classifiers (XGBoost, LightGBM) provides superior performance compared to single-model approaches.
-
+	1) Transform raw vulnerability intelligence into structured, explainable risk insights.
+	2) Integrate machine learning predictions with governance policies to produce actionable GRC decisions.
+	3) Ensure human-in-the-loop validation for high-risk or ambiguous cases.
+	4) Maintain auditable and traceable outputs for enterprise compliance.
 ## Methodology
 
 The methodology follows a structured, sequential pipeline designed for robustness and reproducibility:
