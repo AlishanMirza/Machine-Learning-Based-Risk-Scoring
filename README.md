@@ -91,7 +91,7 @@ The dataset was constructed from real-world vulnerability data sourced from the 
 Access was facilitated through the public GitHub mirror maintained by Espressif:  
 https://github.com/espressif/esp-nvd-mirror
 
-The dataset includes CVEs published between **2020 and 2025**.
+The dataset includes CVEs published between **1999 and 2025**.
 
 Fields extracted include:  
 - Description  
